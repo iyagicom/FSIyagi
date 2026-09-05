@@ -1,4 +1,4 @@
-# FS-AIIyagi — Delete-Protection Filesystem
+# FSIyagi — Delete-Protection Filesystem
 
 A Linux filesystem that keeps project folders from being deleted — by
 accident, or by a runaway script. Reads, writes, and creation all pass
