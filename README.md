@@ -10,7 +10,7 @@ os.remove()  shutil.rmtree()  find -delete  rm  perl unlink
                           ▼  they all collapse into the same syscall
                     unlink / rmdir
                           │
-                    FS-AIIyagi  ──▶  refused (EPERM)
+                    FSIyagi  ──▶  refused (EPERM)
 ```
 
 No matter which language or tool tries to delete, it passes through the
@@ -28,7 +28,7 @@ Vault).
 Download the deb package and install it:
 
 ```bash
-sudo dpkg -i fs-aiiyagi_*.deb
+sudo dpkg -i fsiyagi_*.deb
 sudo apt --fix-broken install   # if a dependency is missing
 ```
 
@@ -51,7 +51,7 @@ sudo gpasswd -a "$USER" fsguard
 ### 2. Prepare a partition with the management UI
 
 ```bash
-fsai-manager
+fsiyagi-manager
 ```
 
 Pick a partition from the disk list, then **Format** and **Mount** it.
@@ -70,15 +70,15 @@ rm: cannot remove 'important.txt': Operation not permitted
 ```
 
 When you genuinely need to delete something, borrow `fsguard` group
-privileges explicitly through `fsai-admin`:
+privileges explicitly through `fsiyagi-admin`:
 
 ```bash
-fsai-admin run rm important.txt
+fsiyagi-admin run rm important.txt
 ```
 
 ### 4. Check on things through the UI
 
-The **Disks** tab in `fsai-manager` shows usage and mount state. The
+The **Disks** tab in `fsiyagi-manager` shows usage and mount state. The
 **Tools** tab lets you find and restore preserved originals from the
 Vault, inspect the policy, or undo a format if needed.
 
@@ -103,21 +103,21 @@ English, Deutsch, Español, Français, Bahasa Indonesia, 日本語, Português,
 ## Troubleshooting
 
 **Deletion fails with `Operation not permitted`**
-That's the intended behavior. Run it through `fsai-admin run <command>`,
+That's the intended behavior. Run it through `fsiyagi-admin run <command>`,
 or check that your account is in the `fsguard` group (`groups`).
 
 **The mount point shows up empty**
 If the mount point already had content but the target partition is empty,
 mounting is refused outright to prevent that content from silently
 disappearing under a blank overlay. Double-check you picked the right
-partition in `fsai-manager`.
+partition in `fsiyagi-manager`.
 
 **`Transport endpoint is not connected`**
 The daemon died. Unmount and mount again.
 
 **I want to undo a format**
 If you enabled the "save a backup for undo" option when formatting, you
-can undo it from the Tools tab in `fsai-manager`. The data area is never
+can undo it from the Tools tab in `fsiyagi-manager`. The data area is never
 touched by formatting, so as long as nothing new has been written to the
 partition since, the original filesystem comes back intact.
 
