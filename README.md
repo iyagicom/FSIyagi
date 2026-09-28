@@ -1,6 +1,18 @@
-# FSIyagi — Delete-Protection Filesystem
+# FSIyagi — One Partition for Windows and Linux (Delete-Protection Filesystem)
 
-A Linux filesystem that keeps project folders from being deleted — by
+**Windows and Linux read and write the same partition.** FSIyagi is a
+partition format that takes the place of NTFS, ext4, or exFAT. On a
+dual-boot PC both systems see the same original folders, so there is no
+more "which side has the latest copy?"
+
+| | NTFS | ext4 | exFAT | **FSIyagi** |
+|---|---|---|---|---|
+| Read/write on Linux | △ (ntfs3 · ntfs-3g) | ✔ | ✔ | ✔ |
+| Read/write on Windows | ✔ | ✘ | ✔ | ✔ (own driver, drive letter) |
+| Journaling (power-loss safety) | ✔ | ✔ | ✘ | ✔ |
+| Delete protection | ✘ | ✘ | ✘ | ✔ |
+
+And the partition keeps project folders from being deleted — by
 accident, or by a runaway script. Reads, writes, and creation all pass
 through untouched. **Only deletion is refused.**
 
@@ -25,6 +37,8 @@ Vault).
 
 ## Install
 
+### Linux
+
 Download the deb package and install it:
 
 ```bash
@@ -34,6 +48,18 @@ sudo apt --fix-broken install   # if a dependency is missing
 
 Nothing turns on automatically after install. Choosing the mount point
 yourself is the point, so the service is started manually too.
+
+### Windows
+
+Run the installer (`FSIyagi_Setup_v*.exe`, administrator rights) to add the
+FSIyagi driver. Then assign a **drive letter** to the FSIyagi partition in
+`fsiyagi-manager`: it shows up in Explorer like any NTFS drive, and since
+Windows remembers the letter, it mounts on its own at every boot.
+
+On Windows, the right to delete belongs to the local group
+**"FSIyagi Guard"** instead of Linux's `fsguard` group. The installer
+creates that group and adds the user who is signed in. Windows can open
+partitions formatted in **NATIVE MODE** (see "Two storage modes" below).
 
 ## First use
 
@@ -89,6 +115,7 @@ Vault, inspect the policy, or undo a format if needed.
 | Storage format | Layered on standard ext4 | Own on-disk format |
 | Recovery | Works with ordinary ext4 tools | Needs the dedicated fsck |
 | Best for | Compatibility, existing setups | Performance, self-containment |
+| Opens on Windows | ✘ | ✔ |
 
 You choose which mode to use at mount time. Both modes share the same
 delete-protection code, so the behavior is identical either way.
