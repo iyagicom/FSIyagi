@@ -1,5 +1,7 @@
 # FSIyagi — Windows·Linux 공용 파티션 (삭제 방지 파일시스템)
 
+[English](README.md) · [한국어](README_ko.md)
+
 **한 파티션을 Windows 와 Linux 가 같이 읽고 씁니다.** NTFS·ext4·exFAT 를
 대신하는 파티션 포맷입니다. 듀얼 부팅 PC 에서 두 OS 가 같은 원본 폴더를 보므로,
 "어느 쪽에 최신 파일이 있더라" 하고 사본을 맞출 일이 없습니다.
@@ -34,11 +36,18 @@ os.remove()  shutil.rmtree()  find -delete  rm  perl unlink
 
 ### Linux
 
-deb 패키지를 받아 설치합니다:
+**[⬇ 최신 버전 받기](https://github.com/iyagicom/FSIyagi/releases/latest)**
+
+| 내 시스템 | 받을 파일 |
+|---|---|
+| Ubuntu 24.04 · 데비안 | **ubuntu24.04** 가 붙은 `.deb` |
+| Ubuntu 26.04 | **ubuntu26.04** 가 붙은 `.deb` |
+| 페도라 · openSUSE | `.rpm` |
+| 아치 · 만자로 | `.pkg.tar.zst` |
+| 그 밖의 리눅스 | `.AppImage` 또는 `.zip` |
 
 ```bash
-sudo dpkg -i fsiyagi_*.deb
-sudo apt --fix-broken install   # 의존 패키지가 빠졌다면
+sudo apt install ./fsiyagi_*_amd64.deb       # 우분투 / 데비안
 ```
 
 설치 직후에는 아무것도 자동으로 켜지지 않습니다. 마운트 지점을 스스로
@@ -46,8 +55,8 @@ sudo apt --fix-broken install   # 의존 패키지가 빠졌다면
 
 ### Windows
 
-설치 파일(`FSIyagi_Setup_v*.exe`, 관리자 권한)을 실행하면 FSIyagi 드라이버가
-들어갑니다. 그 뒤 `fsiyagi-manager` 에서 FSIyagi 파티션에 **드라이브 문자**를
+Windows 판은 준비 중이며 [Releases](https://github.com/iyagicom/FSIyagi/releases) 에 올라올
+예정입니다. 설치 파일을 실행하면 FSIyagi 드라이버가 들어가고, 그 뒤 `fsiyagi-manager` 에서 FSIyagi 파티션에 **드라이브 문자**를
 지정하면 NTFS 드라이브처럼 탐색기에 나타나고, 문자는 Windows 가 기억하므로
 다음 부팅부터는 저절로 붙습니다.
 
@@ -139,8 +148,3 @@ Tiếng Việt, 中文. 다른 언어로 강제 전환하려면 설정 파일에
 포맷할 때 "되돌리기용 백업" 옵션을 켰다면, `fsiyagi-manager`의 도구 탭에서
 포맷을 되돌릴 수 있습니다. 데이터 영역은 건드리지 않으므로 포맷 이후에
 새로 쓴 내용만 없으면 원래 파일시스템이 돌아옵니다.
-
-## 더 알아보기
-
-빌드 방법, 온디스크 포맷 설계, 정책 판정 근거, 검증 기록 등 개발 관련
-내용은 `DEVNOTES.md`를 참고하십시오.

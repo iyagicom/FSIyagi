@@ -1,5 +1,7 @@
 # FSIyagi — One Partition for Windows and Linux (Delete-Protection Filesystem)
 
+[English](README.md) · [한국어](README_ko.md)
+
 **Windows and Linux read and write the same partition.** FSIyagi is a
 partition format that takes the place of NTFS, ext4, or exFAT. On a
 dual-boot PC both systems see the same original folders, so there is no
@@ -39,11 +41,18 @@ Vault).
 
 ### Linux
 
-Download the deb package and install it:
+**[⬇ Latest release](https://github.com/iyagicom/FSIyagi/releases/latest)**
+
+| Your system | File to pick |
+|---|---|
+| Ubuntu 24.04 · Debian | `.deb` marked **ubuntu24.04** |
+| Ubuntu 26.04 | `.deb` marked **ubuntu26.04** |
+| Fedora · openSUSE | `.rpm` |
+| Arch · Manjaro | `.pkg.tar.zst` |
+| Any other Linux | `.AppImage` or `.zip` |
 
 ```bash
-sudo dpkg -i fsiyagi_*.deb
-sudo apt --fix-broken install   # if a dependency is missing
+sudo apt install ./fsiyagi_*_amd64.deb       # Ubuntu / Debian
 ```
 
 Nothing turns on automatically after install. Choosing the mount point
@@ -51,8 +60,8 @@ yourself is the point, so the service is started manually too.
 
 ### Windows
 
-Run the installer (`FSIyagi_Setup_v*.exe`, administrator rights) to add the
-FSIyagi driver. Then assign a **drive letter** to the FSIyagi partition in
+The Windows version is coming to [Releases](https://github.com/iyagicom/FSIyagi/releases).
+The installer adds the FSIyagi driver; then assign a **drive letter** to the FSIyagi partition in
 `fsiyagi-manager`: it shows up in Explorer like any NTFS drive, and since
 Windows remembers the letter, it mounts on its own at every boot.
 
@@ -147,8 +156,3 @@ If you enabled the "save a backup for undo" option when formatting, you
 can undo it from the Tools tab in `fsiyagi-manager`. The data area is never
 touched by formatting, so as long as nothing new has been written to the
 partition since, the original filesystem comes back intact.
-
-## Learn more
-
-For build instructions, on-disk format design, the reasoning behind the
-policy decisions, and verification records, see `DEVNOTES.md`.
